@@ -154,6 +154,6 @@ class main {
         }
 
 		$this->px->fs()->mkdir_r($realpath_public_base);
-		$this->px->fs()->save_file($realpath_public_base.'index.json', json_encode($integrated, JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE));
+		$this->px->fs()->save_file($realpath_public_base.'index.html', json_encode($integrated, JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE));
 	}
 }
