@@ -22,7 +22,7 @@ class publishTest extends PHPUnit\Framework\TestCase {
 		$output = $this->passthru( [
 			'php',
 			__DIR__.'/testdata/standard/.px_execute.php',
-			'/?PX=peraichize.create_index',
+			'/?PX=peraichize.create',
 		] );
 
 		// パブリッシュ

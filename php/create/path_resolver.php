@@ -2,7 +2,7 @@
 /**
  * px2-peraichize
  */
-namespace tomk79\pickles2\peraichize\create_index;
+namespace tomk79\pickles2\peraichize\create;
 
 /**
  * PX Commands "publish" path resolver

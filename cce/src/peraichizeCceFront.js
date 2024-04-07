@@ -13,7 +13,7 @@ window.peraichizeCceFront = function(cceAgent){
 			elm.setAttribute('disabled', true);
 
 			cceAgent.gpi({
-				'command': 'create_index'
+				'command': 'create'
 			}, function(res){
 				console.log('---- res:', res);
 				if(res.result){

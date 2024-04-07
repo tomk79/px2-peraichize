@@ -34,7 +34,7 @@ class main{
      * 管理機能名を取得する
      */
     public function get_label(){
-        return 'サイト内検索';
+        return 'Peraichize';
     }
 
     /**
@@ -68,9 +68,9 @@ class main{
      */
     public function gpi($request){
         switch($request->command){
-            case 'create_index':
+            case 'create':
                 $result = $this->px->internal_sub_request(
-                    '/?PX=peraichize.create_index',
+                    '/?PX=peraichize.create',
                     array(),
                     $return_var);
                 return array(

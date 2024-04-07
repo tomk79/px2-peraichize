@@ -22,9 +22,9 @@ class register {
 		// PX=peraichize を登録
 		$px->pxcmd()->register('peraichize', function($px) use ($conf){
 			$pxcmd = $px->get_px_command();
-			if( ($pxcmd[1] ?? null) == 'create_index' ){
-				$create_index = new main($px, $conf);
-				$create_index->create_index();
+			if( ($pxcmd[1] ?? null) == 'create' ){
+				$create = new main($px, $conf);
+				$create->create();
 			}
 			exit();
 		});

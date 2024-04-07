@@ -2,14 +2,14 @@
 /**
  * px2-peraichize
  */
-namespace tomk79\pickles2\peraichize\create_index;
+namespace tomk79\pickles2\peraichize\create;
 use tomk79\pickles2\peraichize\plugins;
 use tomk79\pickles2\peraichize\main;
 
 /**
- * PX Commands "peraichize.create_index"
+ * PX Commands "peraichize.create"
  */
-class create_index {
+class create {
 
 	/** mainオブジェクト */
 	private $main;
