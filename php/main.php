@@ -54,13 +54,13 @@ class main {
 		return $create->execute();
 	}
 
-    /**
-     * インデックスを統合する
-     */
-    public function integrate_index(){
+	/**
+	 * インデックスを統合する
+	 */
+	public function integrate_index(){
 
 		$realpath_plugin_private_cache = $this->px->realpath_plugin_private_cache();
-        $json_file_list = $this->px->fs()->ls($realpath_plugin_private_cache.'contents/');
+		$json_file_list = $this->px->fs()->ls($realpath_plugin_private_cache.'contents/');
 		$realpath_controot = $this->px->fs()->normalize_path( $this->px->fs()->get_realpath( $this->px->get_realpath_docroot().$this->px->get_path_controot() ) );
 		$realpath_public_base = $realpath_controot.$this->plugin_conf()->path_client_assets_dir.'/';
 		$realpath_homedir = $this->px->fs()->normalize_path( $this->px->fs()->get_realpath( $this->px->get_realpath_homedir() ) );
@@ -69,91 +69,33 @@ class main {
 		$this->px->fs()->copy_r(__DIR__.'/../public/assets/', $realpath_public_base.'assets/');
 
 		// --------------------------------------
-		// client side script
-		$px2peraichizeJs = $this->px->fs()->read_file(__DIR__.'/../public/assets/px2-peraichize.js');
-		$px2peraichizeJs = preg_replace('/\$____engine_type____/s', $this->plugin_conf()->engine_type, $px2peraichizeJs);
-		$px2peraichizeJs = preg_replace('/\$____data-path-controot____/s', $this->px->conf()->path_controot, $px2peraichizeJs);
-		$px2peraichizeJs = preg_replace('/\$____lang____/s', $this->px->lang(), $px2peraichizeJs);
-		$this->px->fs()->save_file($realpath_public_base.'assets/px2-peraichize.js', $px2peraichizeJs);
-
-		// --------------------------------------
 		// initialize FlexSearch
-        $integrated = (object) array(
-            "contents" => array(),
-        );
+		$integrated = (object) array(
+			"contents" => array(),
+		);
 
 		// --------------------------------------
-		// initialize TNTSearch
-		if( $this->plugin_conf->engine_type == 'paprika' ){
-			$searchPhp = $this->px->fs()->read_file(__DIR__.'/../public/search.php');
-			$searchPhp = preg_replace('/\$____path_client_assets_dir____/s', $this->plugin_conf()->path_client_assets_dir, $searchPhp);
-			$searchPhp = preg_replace('/\$____path_private_data_dir____/s', $this->plugin_conf()->path_private_data_dir, $searchPhp);
-			$this->px->fs()->save_file($realpath_public_base.'search.php', $searchPhp);
-		}
+		// making page
+		foreach($json_file_list as $idx => $json_file){
+			$json = json_decode( $this->px->fs()->read_file($realpath_plugin_private_cache.'contents/'.$json_file) );
 
-		$this->px->fs()->rm($realpath_private_data_base.'tntsearch/');
-		if( $this->plugin_conf->engine_type == 'paprika' ){
-			if( $this->px->fs()->mkdir_r($realpath_private_data_base.'tntsearch/') ){
-				// TNT Search データディレクトリを初期化する
-				touch($realpath_private_data_base.'tntsearch/articles.sqlite');
-
-				// NOTE: TNT Search はデータベースからコンテンツを取得してインデックスを作成する。
-				// 本作ではデータベースにコンテンツは格納しないので本来必要ないが、
-				// データベースがないとエラーが起きるので、ダミーだが作成している。
-				$pdo = new \PDO(
-					'sqlite'.':'.$realpath_private_data_base.'tntsearch/articles.sqlite',
-				);
-				$sql = 'CREATE TABLE articles (
-					id VARCHAR(255) NOT NULL,
-					title TEXT NOT NULL,
-					article TEXT NOT NULL,
-					PRIMARY KEY (id));';
-				$stmt = $pdo->prepare($sql);
-				$stmt->execute();
+			if( $json->href == $this->plugin_conf()->path_client_assets_dir.'index.html' ){
+				// 生成されたページ自身は含めない
+				continue;
 			}
 
-			$tnt = new TNTSearch;
-			$tnt->loadConfig([
-				'driver'    => 'sqlite',
-				'database'  => $realpath_private_data_base.'tntsearch/articles.sqlite',
-				'storage'   => $realpath_private_data_base.'tntsearch/',
-				'stemmer'   => \TeamTNT\TNTSearch\Stemmer\PorterStemmer::class
-			]);
-			$indexer = $tnt->create('index.sqlite');
-			$tnt->selectIndex("index.sqlite");
-			$index = $tnt->getIndex();
+			// HTML
+			$html = '';
+			$html .= '<article id="'.htmlspecialchars($json->href).'">'."\n";
+			$html .= '<h1>'.htmlspecialchars($json->page_info->title ?? $json->title ?? '').'</h1>'."\n";
+			$html .= '<div class="contents">'."\n";
+			$html .= ($json->content ?? '');
+			$html .= '</div>'."\n";
+			$html .= '</article>'."\n";
+			array_push($integrated->contents, $html);
 		}
-
-		// --------------------------------------
-		// making index
-        foreach($json_file_list as $idx => $json_file){
-            $json = json_decode( $this->px->fs()->read_file($realpath_plugin_private_cache.'contents/'.$json_file) );
-
-			// FlexSearch
-            array_push($integrated->contents, (object) array(
-                "h" => $json->href ?? null, // href
-                "t" => $json->page_info->title ?? $json->title ?? '', // title
-                "h2" => $json->h2 ?? '',
-                "h3" => $json->h3 ?? '',
-                "h4" => $json->h4 ?? '',
-                "c" => $json->content ?? '', // content
-            ));
-
-			// TNTSearch
-			if( $this->plugin_conf->engine_type == 'paprika' ){
-				$index->insert(array(
-					'id' => $idx,
-					"href" => $json->href ?? null,
-					"title" => $json->page_info->title ?? $json->title ?? '',
-					"h2" => $json->h2 ?? '',
-					"h3" => $json->h3 ?? '',
-					"h4" => $json->h4 ?? '',
-					"article" => $json->content ?? '', // content
-				));
-			}
-        }
 
 		$this->px->fs()->mkdir_r($realpath_public_base);
-		$this->px->fs()->save_file($realpath_public_base.'index.html', json_encode($integrated, JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE));
+		$this->px->fs()->save_file($realpath_public_base.'index.html', implode('', $integrated->contents));
 	}
 }

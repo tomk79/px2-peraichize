@@ -1117,31 +1117,8 @@ class create {
 			// 削除後のHTMLを再パース
 			$html = $this->parse_html( $html->outertext );
 
-			// 見出しを抽出
-			$ret = $html->find('h2');
-			$headding_array = array();
-			foreach( $ret as $retRow ){
-				array_push($headding_array, trim(strip_tags($retRow->innertext)));
-			}
-			$json->h2 = implode(' ', $headding_array);
-
-			$ret = $html->find('h3');
-			$headding_array = array();
-			foreach( $ret as $retRow ){
-				array_push($headding_array, trim(strip_tags($retRow->innertext)));
-			}
-			$json->h3 = implode(' ', $headding_array);
-
-			$ret = $html->find('h4');
-			$headding_array = array();
-			foreach( $ret as $retRow ){
-				array_push($headding_array, trim(strip_tags($retRow->innertext)));
-			}
-			$json->h4 = implode(' ', $headding_array);
-
 			// 検索用にコンテンツを整形
 			$json->content = $html->outertext;
-			$json->content = strip_tags($json->content);
 			$json->content = preg_replace('/[ \t\r\n]+/', " ", $json->content);
 			$json->content = trim($json->content);
 		}
