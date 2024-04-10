@@ -66,6 +66,8 @@ class main {
 		$realpath_homedir = $this->px->fs()->normalize_path( $this->px->fs()->get_realpath( $this->px->get_realpath_homedir() ) );
 		$realpath_private_data_base = $realpath_homedir.$this->plugin_conf()->path_private_data_dir.'/';
 
+		$url_list = $this->px->fs()->read_csv($realpath_plugin_private_cache.'list.csv');
+
 		$this->px->fs()->copy_r(__DIR__.'/../public/assets/', $realpath_public_base.'assets/');
 
 		// --------------------------------------
@@ -76,7 +78,8 @@ class main {
 
 		// --------------------------------------
 		// making page
-		foreach($json_file_list as $idx => $json_file){
+		foreach($url_list as $row){
+			$json_file = urlencode($row[0]).'.json';
 			$json = json_decode( $this->px->fs()->read_file($realpath_plugin_private_cache.'contents/'.$json_file) );
 
 			if( $json->href == $this->plugin_conf()->path_client_assets_dir.'index.html' ){

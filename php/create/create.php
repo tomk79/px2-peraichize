@@ -1128,6 +1128,7 @@ class create {
 		}
 
 		$this->px->fs()->save_file($realpath_plugin_files.'contents/'.urlencode($json->href).'.json', json_encode($json, JSON_PRETTY_PRINT|JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE));
+		error_log($json->href."\n", 3, $realpath_plugin_files.'list.csv');
 	}
 
 	/**
