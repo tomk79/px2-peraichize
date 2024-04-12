@@ -195,14 +195,9 @@ return call_user_func( function(){
 	$conf->funcs->before_content = array(
 		// PX=peraichize
 		tomk79\pickles2\peraichize\register::before_content(array(
-			// 検索エンジンの種類
-			// 省略時: 'client'
-			'engine_type' => 'client',
-			// 'engine_type' => 'paprika',
-
 			// クライアント用アセットを書き出す先のディレクトリ
-			// 省略時: '/common/peraichize/'
-			'path_client_assets_dir' => '/common/peraichize/',
+			// 省略時: '/fulltext/'
+			'path_client_assets_dir' => '/fulltext/',
 
 			// 非公開データの書き出し先ディレクトリ
 			// 省略時: '/_sys/peraichize/'
