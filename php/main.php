@@ -82,7 +82,7 @@ class main {
 			$json_file = urlencode($row[0]).'.json';
 			$json = json_decode( $this->px->fs()->read_file($realpath_plugin_private_cache.'contents/'.$json_file) );
 
-			if( $json->href == $this->plugin_conf()->path_client_assets_dir.'index.html' ){
+			if( $this->px->href($json->href) == $this->px->href($this->plugin_conf()->path_client_assets_dir.'index.html') ){
 				// 生成されたページ自身は含めない
 				continue;
 			}

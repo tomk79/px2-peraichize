@@ -1117,9 +1117,8 @@ class create {
 			// 削除後のHTMLを再パース
 			$html = $this->parse_html( $html->outertext );
 
-			// 検索用にコンテンツを整形
+			// コンテンツを整形
 			$json->content = $html->outertext;
-			$json->content = preg_replace('/[ \t\r\n]+/', " ", $json->content);
 			$json->content = trim($json->content);
 		}
 
