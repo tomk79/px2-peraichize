@@ -29,7 +29,7 @@ $conf->funcs->before_content = array(
         // インデックスから除外するパス
         // 複数のパス(完全一致)、または正規表現で定義します。
         // 省略時: 除外しない
-        'ignored_path' => array(
+        'paths_ignore' => array(
             '/perfect_match_ignored/ignored.html', // 完全一致 による設定例
             '/^\/ignored\/.*$/i', // 正規表現による設定例
         ),

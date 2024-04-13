@@ -33,7 +33,7 @@ class main {
 		$this->plugin_conf->path_client_assets_dir = $this->plugin_conf->path_client_assets_dir ?? '/fulltext/';
 		$this->plugin_conf->path_client_assets_dir = preg_replace('/^\/*(.*)\/*$/', '/$1/', $this->plugin_conf->path_client_assets_dir);
 		$this->plugin_conf->path_private_data_dir = $this->plugin_conf->path_private_data_dir ?? '/_sys/peraichize/';
-		$this->plugin_conf->ignored_path = $this->plugin_conf->ignored_path ?? array();
+		$this->plugin_conf->paths_ignore = $this->plugin_conf->paths_ignore ?? array();
 		$this->plugin_conf->contents_area_selector = $this->plugin_conf->contents_area_selector ?? 'body';
 		$this->plugin_conf->ignored_contents_selector = $this->plugin_conf->ignored_contents_selector ?? array();
 	}
