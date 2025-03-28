@@ -72,7 +72,7 @@ $conf->plugins->px2dt->custom_console_extensions = array(
 
 ### PX=peraichize.create
 
-インデックスファイルを生成する。
+統合されたHTMLファイルを生成する。
 
 
 ## 変更履歴 - Change Log

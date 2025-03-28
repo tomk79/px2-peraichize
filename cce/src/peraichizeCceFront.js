@@ -2,8 +2,8 @@ window.peraichizeCceFront = function(cceAgent){
 	let $elm = cceAgent.elm();
 
 	$elm.innerHTML = `
-		<p>インデックスを更新します。</p>
-		<p><button type="button" class="px2-btn px2-btn--primary cont-btn-create-index">インデックスを更新</button></p>
+		<p>統合ページを更新します。</p>
+		<p><button type="button" class="px2-btn px2-btn--primary cont-btn-create-index">更新する</button></p>
 	`;
 
 	$elm.querySelector('button')
@@ -17,9 +17,9 @@ window.peraichizeCceFront = function(cceAgent){
 			}, function(res){
 				console.log('---- res:', res);
 				if(res.result){
-					alert('インデックスを更新しました。');
+					alert('統合ページを更新しました。');
 				}else{
-					alert('[ERROR] インデックスの更新に失敗しました。');
+					alert('[ERROR] 統合ページの更新に失敗しました。');
 				}
 				px2style.closeLoading();
 				elm.removeAttribute('disabled');
