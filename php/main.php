@@ -91,6 +91,16 @@ class main {
 			$html = '';
 			$html .= '<article id="'.htmlspecialchars($json->href).'">'."\n";
 			$html .= '<h1>'.htmlspecialchars($json->page_info->title ?? $json->title ?? '').'</h1>'."\n";
+			if( ($json->page_info->release_date ?? false) || ($json->page_info->update_date ?? false) ){
+				$html .= '<p>'."\n";
+				if( $json->page_info->release_date ?? false ){
+					$html .= '    Released: '.htmlspecialchars($json->page_info->release_date ?? '')."\n";
+				}
+				if( $json->page_info->update_date ?? false ){
+					$html .= '    Updated: '.htmlspecialchars($json->page_info->update_date ?? '')."\n";
+				}
+				$html .= '</p>'."\n";
+			}
 			$html .= '<div class="contents">'."\n";
 			$html .= ($json->content ?? '');
 			$html .= '</div>'."\n";
