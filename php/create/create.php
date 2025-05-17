@@ -18,7 +18,7 @@ class create {
 	private $px;
 
 	/** プラグイン設定 */
-	private $plugin_conf;
+	private $current_page_conf;
 
 	/** パブリッシュ設定 */
 	private $publish_options;
@@ -65,11 +65,12 @@ class create {
 	/**
 	 * constructor
 	 * @param object $main mainオブジェクト
+	 * @param object $current_page_conf 現在のページの設定
 	 */
-	public function __construct( $main, $plugin_conf ){
+	public function __construct( $main, $current_page_conf ){
 		$this->main = $main;
 		$this->px = $main->px();
-		$this->plugin_conf = $plugin_conf;
+		$this->current_page_conf = $current_page_conf;
 
 		// プラグイン設定の初期化
 		// NOTE: ※ここで取り扱うのは、パブリッシュプラグインのオプション
@@ -514,7 +515,7 @@ class create {
 
 		print '============'."\n";
 		print '## Create index file.'."\n";
-		$this->main->integrate_index();
+		$this->main->integrate_index($this->current_page_conf);
 
 		print "\n";
 
@@ -561,7 +562,6 @@ class create {
 		$this->unlock();
 
 		print $this->cli_footer();
-		exit;
 	}
 
 
@@ -1080,7 +1080,7 @@ class create {
 
 			// コンテンツを抽出
 			$contents_array = array();
-			$ret = $html->find($this->plugin_conf->contents_area_selector);
+			$ret = $html->find($this->current_page_conf->contents_area_selector);
 			foreach( $ret as $retRow ){
 				array_push($contents_array, $retRow->outertext);
 			}
@@ -1089,8 +1089,8 @@ class create {
 			$html = $this->parse_html( '<div>'.implode("\n", $contents_array).'</div>' );
 
 			// 除外コンテンツ
-			if( is_array($this->plugin_conf->ignored_contents_selector) && count($this->plugin_conf->ignored_contents_selector) ){
-				foreach($this->plugin_conf->ignored_contents_selector as $ignored_contents_selector ){
+			if( is_array($this->current_page_conf->ignored_contents_selector) && count($this->current_page_conf->ignored_contents_selector) ){
+				foreach($this->current_page_conf->ignored_contents_selector as $ignored_contents_selector ){
 					$ret = $html->find($ignored_contents_selector);
 					foreach( $ret as $retRow ){
 						$retRow->outertext = '';
@@ -1136,7 +1136,7 @@ class create {
 	 * @return boolean 除外されていたら true, 除外されていない場合は false
 	 */
 	private function is_ignored_path( $path ){
-		$paths_ignore = $this->plugin_conf->paths_ignore;
+		$paths_ignore = $this->current_page_conf->paths_ignore;
 		if( !is_array($paths_ignore) ){
 			return false;
 		}

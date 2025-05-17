@@ -29,13 +29,18 @@ class main {
 		$this->px = $px;
 		$this->plugin_conf = $plugin_conf;
 
-		$this->plugin_conf = (object) $this->plugin_conf;
-		$this->plugin_conf->path_client_assets_dir = $this->plugin_conf->path_client_assets_dir ?? '/fulltext/';
-		$this->plugin_conf->path_client_assets_dir = preg_replace('/^\/*(.*)\/*$/', '/$1/', $this->plugin_conf->path_client_assets_dir);
-		$this->plugin_conf->path_private_data_dir = $this->plugin_conf->path_private_data_dir ?? '/_sys/peraichize/';
-		$this->plugin_conf->paths_ignore = $this->plugin_conf->paths_ignore ?? array();
-		$this->plugin_conf->contents_area_selector = $this->plugin_conf->contents_area_selector ?? 'body';
-		$this->plugin_conf->ignored_contents_selector = $this->plugin_conf->ignored_contents_selector ?? array();
+		$this->plugin_conf = json_decode(json_encode($this->plugin_conf));
+		if(is_object($this->plugin_conf)){
+			$this->plugin_conf = array($this->plugin_conf);
+		}
+		foreach($this->plugin_conf as $current_page_conf){
+			$current_page_conf->path_client_assets_dir = $current_page_conf->path_client_assets_dir ?? '/fulltext/';
+			$current_page_conf->path_client_assets_dir = preg_replace('/^\/*(.*)\/*$/', '/$1/', $current_page_conf->path_client_assets_dir);
+			$current_page_conf->path_private_data_dir = $current_page_conf->path_private_data_dir ?? '/_sys/peraichize/';
+			$current_page_conf->paths_ignore = $current_page_conf->paths_ignore ?? array();
+			$current_page_conf->contents_area_selector = $current_page_conf->contents_area_selector ?? 'body';
+			$current_page_conf->ignored_contents_selector = $current_page_conf->ignored_contents_selector ?? array();
+		}
 	}
 
 	public function px(){
@@ -50,21 +55,25 @@ class main {
 	 * インデックスファイルを生成する
 	 */
 	public function create(){
-		$create = new create\create($this, $this->plugin_conf);
-		return $create->execute();
+		foreach($this->plugin_conf as $current_page_conf){
+			$create = new create\create($this, $current_page_conf);
+			$create->execute();
+		}
+		exit();
 	}
 
 	/**
 	 * インデックスを統合する
+	 * @param object $current_page_conf 現在のページの設定
 	 */
-	public function integrate_index(){
+	public function integrate_index($current_page_conf){
 
 		$realpath_plugin_private_cache = $this->px->realpath_plugin_private_cache();
 		$json_file_list = $this->px->fs()->ls($realpath_plugin_private_cache.'contents/');
 		$realpath_controot = $this->px->fs()->normalize_path( $this->px->fs()->get_realpath( $this->px->get_realpath_docroot().$this->px->get_path_controot() ) );
-		$realpath_public_base = $realpath_controot.$this->plugin_conf()->path_client_assets_dir.'/';
+		$realpath_public_base = $realpath_controot.$current_page_conf->path_client_assets_dir.'/';
 		$realpath_homedir = $this->px->fs()->normalize_path( $this->px->fs()->get_realpath( $this->px->get_realpath_homedir() ) );
-		$realpath_private_data_base = $realpath_homedir.$this->plugin_conf()->path_private_data_dir.'/';
+		$realpath_private_data_base = $realpath_homedir.$current_page_conf->path_private_data_dir.'/';
 
 		$url_list = $this->px->fs()->read_csv($realpath_plugin_private_cache.'list.csv');
 
@@ -82,7 +91,7 @@ class main {
 			$json_file = urlencode($row[0]).'.json';
 			$json = json_decode( $this->px->fs()->read_file($realpath_plugin_private_cache.'contents/'.$json_file) );
 
-			if( $this->px->href($json->href) == $this->px->href($this->plugin_conf()->path_client_assets_dir.'index.html') ){
+			if( $this->px->href($json->href) == $this->px->href($current_page_conf->path_client_assets_dir.'index.html') ){
 				// 生成されたページ自身は含めない
 				continue;
 			}
