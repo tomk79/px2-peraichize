@@ -21,11 +21,11 @@ class tmp_publish_dir{
 	/**
 	 * constructor
 	 * @param object $px Picklesオブジェクト
-	 * @param object $json プラグイン設定
+	 * @param object $plugin_conf プラグイン設定
 	 */
-	public function __construct( $px, $json ){
+	public function __construct( $px, $plugin_conf ){
 		$this->px = $px;
-		$this->plugin_conf = $json;
+		$this->plugin_conf = $plugin_conf;
 	}
 
 	/**

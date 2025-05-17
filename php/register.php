@@ -23,8 +23,8 @@ class register {
 		$px->pxcmd()->register('peraichize', function($px) use ($conf){
 			$pxcmd = $px->get_px_command();
 			if( ($pxcmd[1] ?? null) == 'create' ){
-				$create = new main($px, $conf);
-				$create->create();
+				$main = new main($px, $conf);
+				$main->create();
 			}
 			exit();
 		});
