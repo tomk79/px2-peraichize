@@ -258,7 +258,6 @@ class create {
 	 */
 	public function execute(){
 		$px = $this->px;
-		header('Content-type: text/plain;');
 		$total_time = time();
 		print $this->cli_header();
 
