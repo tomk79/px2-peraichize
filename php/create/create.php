@@ -265,7 +265,7 @@ class create {
 		if( !$validate['status'] ){
 			print $validate['message']."\n";
 			print $this->cli_footer();
-			exit;
+			return;
 		}
 		flush();
 		if( !$this->lock() ){//ロック
@@ -275,7 +275,7 @@ class create {
 			print 'Try again later...'."\n";
 			print 'exit.'."\n";
 			print $this->cli_footer();
-			exit;
+			return;
 		}
 		print "\n";
 		print "\n";

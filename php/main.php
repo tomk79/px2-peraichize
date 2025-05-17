@@ -33,7 +33,8 @@ class main {
 		if(is_object($this->plugin_conf)){
 			$this->plugin_conf = array($this->plugin_conf);
 		}
-		foreach($this->plugin_conf as $current_page_conf){
+		foreach($this->plugin_conf as $index => $current_page_conf){
+			$current_page_conf = (object) $current_page_conf;
 			$current_page_conf->path_client_assets_dir = $current_page_conf->path_client_assets_dir ?? '/fulltext/';
 			$current_page_conf->path_client_assets_dir = preg_replace('/^\/*(.*)\/*$/', '/$1/', $current_page_conf->path_client_assets_dir);
 			$current_page_conf->path_private_data_dir = $current_page_conf->path_private_data_dir ?? '/_sys/peraichize/';
