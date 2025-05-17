@@ -1,0 +1,105 @@
+<article id="/index.html">
+<h1>HOME</h1>
+<div class="contents">
+<div><div class="contents">
+<p>Welcome to Pickles 2.</p>
+
+<ul><li><a href="/basic/">基本</a></li>
+<li><a href="/showcase/">ショーケース</a></li>
+<li><a href="/ignored/">除外されるべきコンテンツ</a></li>
+</ul>
+
+
+</div></div></div>
+</article>
+<article id="/basic/index.html">
+<h1>基本</h1>
+<div class="contents">
+<div><div class="contents">
+<p>Paprika によるウェブアプリケーションの実装方針には、3つの種類があります。</p>
+</div></div></div>
+</article>
+<article id="/basic/php_api-ajax.html">
+<h1>1. PHPによるAPIにAJAX通信する</h1>
+<div class="contents">
+<div><div class="contents">
+<p>AJAX通信する方法は、最もシンプルで直感的な実装方法です。</p>
+<p>ページの内容を記述するコンテンツファイルとは別に、 <code>*.php</code> 拡張子のAPIプログラムを用意し、これとAJAX通信をして、クライアントサイドJavaScriptで画面の表示を更新する方法です。</p>
+<p>この方法では、 コンテンツのHTMLは静的に出力されます。 <code>*.php</code> のAPIプログラムは、プレビュー環境でもパブリッシュ先でも動的に実行されます。 グローバル空間に <code>$paprika</code> が存在するように環境が整えられます。</p>
+
+<p>次の例は、 API <a href="/basic/php_api-ajax_files/apis/sample.php" target="_blank">sample.php</a> から取得したJSONの内容を表示したものです。</p>
+
+<pre><code class="cont-sample"></code></pre>
+</div></div></div>
+</article>
+<article id="/basic/php_page.php">
+<h1>2. PHPで実行する</h1>
+<div class="contents">
+<div></div></div>
+</article>
+<article id="/basic/php_preview.html">
+<h1>3. プレビュー環境で動的に実行する</h1>
+<div class="contents">
+<div><div class="contents">
+<p>動的な値をコンテンツから出力します。</p>
+<p>パブリッシュの成果物は、実行結果の静的なHTMLファイルです。</p>
+<p style="color:#f60;">この段落はPHPコードが動的に生成したものです。</p></div></div></div>
+</article>
+<article id="/showcase/index.html">
+<h1>ショーケース</h1>
+<p>
+    Released: 2025-02-07
+    Updated: 2025-03-16
+</p>
+<div class="contents">
+<div><div class="contents">
+</div></div></div>
+</article>
+<article id="/showcase/extphp/index.html">
+<h1>PHPを拡張子で適用する</h1>
+<div class="contents">
+<div></div></div>
+</article>
+<article id="/ignored/index.html">
+<h1>除外されるべきコンテンツ</h1>
+<div class="contents">
+<div><div class="contents">
+<div class="px2-p">
+<p>このコンテンツは、除外されるべきです。</p>
+
+</div>
+</div></div></div>
+</article>
+<article id="/ignored/this_is_ignored_too/ignored.html">
+<h1>除外の範囲内</h1>
+<div class="contents">
+<div><div class="contents">
+<div class="px2-p">
+<p>このコンテンツも除外範囲に含まれています。</p>
+
+<p>インデックスが作成されるべきではありません。</p>
+
+</div>
+</div></div></div>
+</article>
+<article id="/ignored/this_is_perfect_match_ignored/ignored.html">
+<h1>完全一致で除外されたパス</h1>
+<div class="contents">
+<div><div class="contents">
+<p>404 - File not found.</p></div></div></div>
+</article>
+<article id="/ignored/this_is_not_ignored/included.html">
+<h1>除外されないコンテンツ</h1>
+<div class="contents">
+<div><div class="contents">
+<div class="px2-p">
+<p>このコンテンツは除外フォルダ(<code>/ignored/</code>)の中に存在しますが、インデックスに含まれるべきです。</p>
+
+</div>
+</div></div></div>
+</article>
+<article id="/basic/php_api-ajax_files/apis/sample.php">
+<h1></h1>
+<div class="contents">
+<div></div></div>
+</article>

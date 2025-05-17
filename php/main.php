@@ -93,9 +93,12 @@ class main {
 			$json_file = urlencode($row[0]).'.json';
 			$json = json_decode( $this->px->fs()->read_file($realpath_plugin_private_cache.'contents/'.$json_file) );
 
-			if( $this->px->href($json->href) == $this->px->href($current_page_conf->path_client_assets_dir.'index.html') ){
-				// 生成されたページ自身は含めない
-				continue;
+			foreach($this->plugin_conf as $index => $tmp_page_conf){
+				$tmp_page_conf = (object) $tmp_page_conf;
+				if( $this->px->href($json->href) == $this->px->href($tmp_page_conf->path_client_assets_dir.'index.html') ){
+					// 生成されたページ自身は含めない
+					continue 2;
+				}
 			}
 
 			// HTML

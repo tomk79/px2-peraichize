@@ -222,32 +222,32 @@ return call_user_func( function(){
 					'.contents-ignored',
 				),
 			),
-			// array(
-			// 	// クライアント用アセットを書き出す先のディレクトリ
-			// 	// 省略時: '/fulltext/'
-			// 	'path_client_assets_dir' => '/fulltext2/',
+			array(
+				// クライアント用アセットを書き出す先のディレクトリ
+				// 省略時: '/fulltext/'
+				'path_client_assets_dir' => '/fulltext2/',
 
-			// 	// 非公開データの書き出し先ディレクトリ
-			// 	// 省略時: '/_sys/peraichize/'
-			// 	'path_private_data_dir' => '/_sys/peraichize2/',
+				// 非公開データの書き出し先ディレクトリ
+				// 省略時: '/_sys/peraichize/'
+				'path_private_data_dir' => '/_sys/peraichize2/',
 
-			// 	// インデックスから除外するパス
-			// 	// 複数のパス(完全一致)、または正規表現で定義します。
-			// 	// 省略時: 除外しない
-			// 	'paths_ignore' => array(
-			// 		'/pass/index.html',
-			// 	),
+				// インデックスから除外するパス
+				// 複数のパス(完全一致)、または正規表現で定義します。
+				// 省略時: 除外しない
+				'paths_ignore' => array(
+					'/pass/index.html',
+				),
 
-			// 	// コンテンツエリアを抽出するセレクタ
-			// 	// 省略時: '.contents'
-			// 	'contents_area_selector' => '.contents',
+				// コンテンツエリアを抽出するセレクタ
+				// 省略時: '.contents'
+				'contents_area_selector' => '.contents',
 
-			// 	// コンテンツから除外する要素のセレクタ
-			// 	// 省略時: 除外しない
-			// 	'ignored_contents_selector' => array(
-			// 		'.contents-ignored',
-			// 	),
-			// ),
+				// コンテンツから除外する要素のセレクタ
+				// 省略時: 除外しない
+				'ignored_contents_selector' => array(
+					'.contents-ignored',
+				),
+			),
 		) ),
 
 		// PX=api
