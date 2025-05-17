@@ -50,7 +50,7 @@ class main {
 	 * インデックスファイルを生成する
 	 */
 	public function create(){
-		$create = new create\create($this);
+		$create = new create\create($this, $this->plugin_conf);
 		return $create->execute();
 	}
 

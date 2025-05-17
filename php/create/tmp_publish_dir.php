@@ -13,7 +13,7 @@ class tmp_publish_dir{
 	private $px;
 
 	/** プラグイン設定 */
-	private $plugin_conf;
+	private $publish_options;
 
 	/** 一時ディレクトリの一覧 */
 	private $tmp_publish_dir_index = array();
@@ -21,11 +21,11 @@ class tmp_publish_dir{
 	/**
 	 * constructor
 	 * @param object $px Picklesオブジェクト
-	 * @param object $plugin_conf プラグイン設定
+	 * @param object $publish_options プラグイン設定
 	 */
-	public function __construct( $px, $plugin_conf ){
+	public function __construct( $px, $publish_options ){
 		$this->px = $px;
-		$this->plugin_conf = $plugin_conf;
+		$this->publish_options = $publish_options;
 	}
 
 	/**

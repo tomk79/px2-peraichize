@@ -13,7 +13,7 @@ class path_resolver{
 	private $px;
 
 	/** プラグイン設定 */
-	private $plugin_conf;
+	private $publish_options;
 
 	/** パス変換オブジェクト */
 	private $path_rewriter;
@@ -28,15 +28,15 @@ class path_resolver{
 	/**
 	 * constructor
 	 * @param object $px Picklesオブジェクト
-	 * @param object $plugin_conf プラグイン設定
+	 * @param object $publish_options プラグイン設定
 	 * @param object $path_rewriter パス変換オブジェクト
 	 * @param object $device_info 端末設定
 	 * @param string $path_original 変換前のパス
 	 * @param string $path_rewrited 変換後のパス
 	 */
-	public function __construct( $px, $plugin_conf, $path_rewriter, $device_info, $path_original, $path_rewrited ){
+	public function __construct( $px, $publish_options, $path_rewriter, $device_info, $path_original, $path_rewrited ){
 		$this->px = $px;
-		$this->plugin_conf = $plugin_conf;
+		$this->publish_options = $publish_options;
 		$this->path_rewriter = $path_rewriter;
 		$this->device_info = $device_info;
 		$this->path_original = $path_original;
