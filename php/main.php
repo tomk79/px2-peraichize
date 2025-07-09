@@ -56,7 +56,9 @@ class main {
 	 * インデックスファイルを生成する
 	 */
 	public function create(){
-		header('Content-type: text/plain;');
+		if (!headers_sent()) {
+			header('Content-type: text/plain;');
+		}
 		foreach($this->plugin_conf as $current_page_conf){
 			$create = new create\create($this, $current_page_conf);
 			$create->execute();
