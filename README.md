@@ -77,7 +77,7 @@ $conf->plugins->px2dt->custom_console_extensions = array(
 
 ## 変更履歴 - Change Log
 
-### tomk79/px2-peraichize v0.1.0 (リリース日未定)
+### tomk79/px2-peraichize v0.1.0 (2025年7月12日)
 
 - Initial Release.
 
